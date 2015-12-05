@@ -73,6 +73,12 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
         SMSManager.getInstance().sendMessage(this, "86", tilNumber.getEditText().getText().toString());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSManager.getInstance().unRegisterTimeListener(this);
+    }
+
     public void modify(){
         if (tilPassword.getEditText().getText().toString().length() < 6 || tilPassword.getEditText().getText().toString().length() > 12) {
             Toast.makeText(this,"请输入6-12位密码",Toast.LENGTH_SHORT).show();

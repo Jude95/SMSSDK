@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity implements TimeListener 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         SMSManager.getInstance().registerTimeListener(this);
+
         btnCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +119,11 @@ public class RegisterActivity extends AppCompatActivity implements TimeListener 
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSManager.getInstance().unRegisterTimeListener(this);
+    }
 
     @Override
     public void onLastTimeNotify(int lastSecond) {
