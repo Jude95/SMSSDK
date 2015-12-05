@@ -49,7 +49,7 @@
 具体用法可以参考demo。
 可以使用 `SMSManager.getInstance().setDefaultDelay(60)`来设置最短时间。
 
-##mob使用自己的APPKEY
+##使用自己的APPKEY
 在`AndroidManifest`的`application`节点下增加
 
         <meta-data
