@@ -2,7 +2,7 @@
 对[mob](http://www.mob.com/#/)的短信验证二次封装。更简洁的调用，maven直接仓库依赖。
 
 #依赖
-`compile 'com.jude.smssdk_mob:smssdk_mob:1.0.1'`
+`compile 'com.jude.smssdk_mob:smssdk_mob:1.0.2'`
 
 #示例APP下载
 [直接下载](http://7xn7nj.com2.z0.glb.qiniucdn.com/smssdk.apk)

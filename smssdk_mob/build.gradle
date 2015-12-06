@@ -36,7 +36,7 @@ ext {
     siteUrl = 'https://github.com/Jude95/SMSSDK'
     gitUrl = 'https://github.com/Jude95/SMSSDK'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
     libraryName = 'smssdk_mob'
     libraryDescription = 'A tool for Android'
 
