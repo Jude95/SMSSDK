@@ -95,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity implements TimeListener 
         SMSManager.getInstance().verifyCode(this, "86", tilNumber.getEditText().getText().toString(), tilCode.getEditText().getText().toString(), new Callback() {
             @Override
             public void success() {
-
                 if (LocalAccountManager.getInstance(RegisterActivity.this).create(RegisterActivity.this,
                         new Account(
                                 tilNumber.getEditText().getText().toString(),

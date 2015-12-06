@@ -88,7 +88,7 @@
             android:id="@+id/btn_modify"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="注册"
+            android:text="修改"
             android:textColor="#fff"
             android:layout_margin="16dp"
             android:background="@drawable/btn"

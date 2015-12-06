@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (LocalAccountManager.getInstance(LoginActivity.this).check(tilNumber.getEditText().getText().toString(), tilPassword.getEditText().getText().toString())) {
+                if (LocalAccountManager.getInstance(LoginActivity.this).check(LoginActivity.this,tilNumber.getEditText().getText().toString(), tilPassword.getEditText().getText().toString())) {
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {

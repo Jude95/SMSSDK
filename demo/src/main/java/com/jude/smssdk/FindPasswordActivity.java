@@ -98,6 +98,7 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
                     i.putExtra("password", tilPassword.getEditText().getText().toString());
                     setResult(RESULT_OK, i);
                     Toast.makeText(FindPasswordActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(FindPasswordActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
                 }

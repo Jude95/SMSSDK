@@ -18,6 +18,7 @@ import java.util.HashSet;
  */
 public class LocalAccountManager {
     public static final String ACCOUNT_FILE = "ACCOUNT";
+    public static final String CURRENT_ACCOUNT_FILE = "CURRENT_ACCOUNT";
     private static LocalAccountManager instance;
     private HashSet<Account> mAccounts;
     private Account mCurAccount;
@@ -29,7 +30,8 @@ public class LocalAccountManager {
     }
 
     private LocalAccountManager(Context ctx) {
-        mAccounts = read(ctx);
+        mAccounts = readAccountList(ctx);
+        mCurAccount = readCurAccount(ctx);
         if (mAccounts == null) mAccounts = new HashSet<>();
     }
 
@@ -66,7 +68,7 @@ public class LocalAccountManager {
 
     public boolean create(Context ctx,Account account){
         if (mAccounts.add(account)){
-            save(ctx, mAccounts);
+            saveAccountList(ctx, mAccounts);
             return true;
         }
         return false;
@@ -76,17 +78,18 @@ public class LocalAccountManager {
         for (Account account : mAccounts) {
             if(account.getNumber().equals(number)){
                 account.setPassword(newPassword);
-                save(ctx, mAccounts);
+                saveAccountList(ctx, mAccounts);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean check(String number,String password){
+    public boolean check(Context ctx,String number,String password){
         for (Account account : mAccounts) {
             if(account.getNumber().equals(number)&&account.getPassword().equals(password)){
                 onNextAccount(account);
+                saveCurAccount(ctx,account);
                 return true;
             }
         }
@@ -97,11 +100,19 @@ public class LocalAccountManager {
         return mAccounts.contains(new Account(number));
     }
 
-    private static void save(Context ctx,HashSet<Account> data){
+    private static void saveCurAccount(Context ctx,Account data){
+        writeObjectToFile(data,new File(ctx.getFilesDir(),CURRENT_ACCOUNT_FILE));
+    }
+
+    private static Account readCurAccount(Context ctx){
+        return (Account) readObjectFromFile(new File(ctx.getFilesDir(),CURRENT_ACCOUNT_FILE));
+    }
+
+    private static void saveAccountList(Context ctx, HashSet<Account> data){
         writeObjectToFile(data,new File(ctx.getFilesDir(),ACCOUNT_FILE));
     }
 
-    private static HashSet<Account> read(Context ctx){
+    private static HashSet<Account> readAccountList(Context ctx){
         return (HashSet<Account>) readObjectFromFile(new File(ctx.getFilesDir(),ACCOUNT_FILE));
     }
 

@@ -9,15 +9,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="SMS_MOB_APPKEY"
-            android:value="xxxxxxx"
-            />
-        <meta-data
-            android:name="SMS_MOB_APPSECRET"
-            android:value="xxxxxxx"
-            />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

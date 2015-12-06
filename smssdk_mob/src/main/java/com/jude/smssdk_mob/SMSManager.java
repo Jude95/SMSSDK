@@ -23,7 +23,7 @@ public class SMSManager {
     public static SMSManager getInstance(){
         return instance;
     }
-
+    public static boolean DEBUG = true;
     public static final String DEFAULT_APPKEY = "d07fe87822d3";
     public static final String DEFAULT_APPSECRET = "425473ac512e5abfa2e138489e5c37c1";
     public static int DEFAULT_DELAY = 60;
@@ -32,6 +32,7 @@ public class SMSManager {
     private boolean inited = false;
     private Timer timer;
     private int last = 0;
+    private CallbackEventHandler mHandler = new CallbackEventHandler();
 
     private void startTimer(){
         timer = new Timer();
@@ -72,7 +73,7 @@ public class SMSManager {
         }
         SMSSDK.initSDK(ctx, appKey, appSecret);
         inited = true;
-
+        SMSSDK.registerEventHandler(mHandler);
     }
 
     public void setDefaultDelay(int delay){
@@ -140,33 +141,50 @@ public class SMSManager {
         if (!inited){
             init(ctx);
         }
-        final Handler handler = new Handler();
-        SMSSDK.registerEventHandler(new EventHandler() {
-            @Override
-            public void afterEvent(int event, int result, final Object data) {
-                Log.i("SMSSDK","result"+result+ "event"+event);
-                SMSSDK.unregisterEventHandler(this);
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        if (callback!=null) handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                callback.success();
-                            }
-                        });
-                    }
-                } else {
-                    if (callback!= null) handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.error((Throwable) data);
-                        }
-                    });
-                }
-            }
-        });
+        mHandler.setCallback(callback);
         SMSSDK.submitVerificationCode(country, number, code);
     }
 
+    private class CallbackEventHandler extends EventHandler {
+        Callback mCallback;
+        Handler handler = new Handler();
+        public void setCallback(Callback mCallback) {
+            this.mCallback = mCallback;
+        }
+
+        @Override
+        public void afterEvent(int event, int result, final Object data) {
+            if (result == SMSSDK.RESULT_COMPLETE) {
+                log("回调完成");
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                    log("提交验证码成功");
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mCallback.success();
+                            mCallback = null;
+                        }
+                    });
+                } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                    log("获取验证码成功");
+                } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                    log("返回支持发送验证码的国家列表");
+                }
+            } else {
+                log("Error:" + data.toString());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCallback.error((Throwable) data);
+                        mCallback = null;
+                    }
+                });
+            }
+        }
+    }
+
+    private void log(String content){
+        if (DEBUG) Log.i("SMSSDK", content);
+    }
 
 }
