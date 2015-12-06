@@ -23,7 +23,7 @@ public class SMSManager {
     public static SMSManager getInstance(){
         return instance;
     }
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
     public static final String DEFAULT_APPKEY = "d07fe87822d3";
     public static final String DEFAULT_APPSECRET = "425473ac512e5abfa2e138489e5c37c1";
     public static int DEFAULT_DELAY = 60;
