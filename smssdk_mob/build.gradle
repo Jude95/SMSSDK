@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,7 @@ ext {
     siteUrl = 'https://github.com/Jude95/SMSSDK'
     gitUrl = 'https://github.com/Jude95/SMSSDK'
 
-    libraryVersion = '1.0.2'
+    libraryVersion = '1.0.3'
     libraryName = 'smssdk_mob'
     libraryDescription = 'A tool for Android'
 
