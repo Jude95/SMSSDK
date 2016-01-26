@@ -23,9 +23,9 @@ public class SMSManager {
     public static SMSManager getInstance(){
         return instance;
     }
-    public static boolean DEBUG = false;
-    public static final String DEFAULT_APPKEY = "d07fe87822d3";
-    public static final String DEFAULT_APPSECRET = "425473ac512e5abfa2e138489e5c37c1";
+    public static boolean DEBUG = true;
+    public static final String DEFAULT_APPKEY = "f259d98c6a74";
+    public static final String DEFAULT_APPSECRET = "e16b4b62e67ee992f4806ab1c531c68a";
     public static int DEFAULT_DELAY = 60;
 
     public ArrayList<TimeListener> timeList = new ArrayList<>();
@@ -71,6 +71,7 @@ public class SMSManager {
             appKey = appInfo.metaData.getString("SMS_MOB_APPKEY").trim();
             appSecret = appInfo.metaData.getString("SMS_MOB_APPSECRET").trim();
         }
+        log("appkey:"+appKey+"  appsecret:"+appSecret);
         SMSSDK.initSDK(ctx, appKey, appSecret);
         inited = true;
         SMSSDK.registerEventHandler(mHandler);
@@ -161,7 +162,8 @@ public class SMSManager {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            mCallback.success();
+                            if (mCallback!=null)
+                                mCallback.success();
                             mCallback = null;
                         }
                     });
@@ -175,7 +177,8 @@ public class SMSManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mCallback.error((Throwable) data);
+                        if (mCallback!=null)
+                            mCallback.error((Throwable) data);
                         mCallback = null;
                     }
                 });
