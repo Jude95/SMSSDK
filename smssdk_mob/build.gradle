@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 7
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -21,7 +21,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile files('libs/MobCommons.jar')
     compile files('libs/MobTools.jar')
     compile files('libs/SMSSDK-2.0.1.jar')
@@ -36,7 +36,7 @@ ext {
     siteUrl = 'https://github.com/Jude95/SMSSDK'
     gitUrl = 'https://github.com/Jude95/SMSSDK'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.1.1'
     libraryName = 'smssdk_mob'
     libraryDescription = 'A tool for Android'
 
