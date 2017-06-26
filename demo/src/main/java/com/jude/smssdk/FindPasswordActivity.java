@@ -18,24 +18,24 @@ import com.jude.smssdk_mob.Callback;
 import com.jude.smssdk_mob.SMSManager;
 import com.jude.smssdk_mob.TimeListener;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by Mr.Jude on 2015/12/5.
  */
-public class FindPasswordActivity extends AppCompatActivity  implements TimeListener {
-    public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
+public class FindPasswordActivity extends AppCompatActivity implements TimeListener {
+    public static final int EXTERNAL_STORAGE_REQ_CODE = 10;
 
-    @Bind(R.id.til_number)
+    @BindView(R.id.til_number)
     TextInputLayout tilNumber;
-    @Bind(R.id.btn_code)
+    @BindView(R.id.btn_code)
     Button btnCode;
-    @Bind(R.id.til_code)
+    @BindView(R.id.til_code)
     TextInputLayout tilCode;
-    @Bind(R.id.til_password)
+    @BindView(R.id.til_password)
     TextInputLayout tilPassword;
-    @Bind(R.id.btn_modify)
+    @BindView(R.id.btn_modify)
     Button btnModify;
 
     @Override
@@ -59,15 +59,15 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
     }
 
     public void sendCode() {
-        if (!requestPermission()){
+        if (!requestPermission()) {
             return;
         }
         if (tilNumber.getEditText().getText().toString().length() != 11) {
             Toast.makeText(this, "请输入正确手机号", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!LocalAccountManager.getInstance(this).exist(tilNumber.getEditText().getText().toString())){
-            Toast.makeText(this,"手机号还未注册",Toast.LENGTH_SHORT).show();
+        if (!LocalAccountManager.getInstance(this).exist(tilNumber.getEditText().getText().toString())) {
+            Toast.makeText(this, "手机号还未注册", Toast.LENGTH_SHORT).show();
             return;
         }
         SMSManager.getInstance().sendMessage(this, "86", tilNumber.getEditText().getText().toString());
@@ -79,13 +79,13 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
         SMSManager.getInstance().unRegisterTimeListener(this);
     }
 
-    public void modify(){
+    public void modify() {
         if (tilPassword.getEditText().getText().toString().length() < 6 || tilPassword.getEditText().getText().toString().length() > 12) {
-            Toast.makeText(this,"请输入6-12位密码",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请输入6-12位密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(tilCode.getEditText().getText().toString())){
-            Toast.makeText(this,"请输入验证码",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(tilCode.getEditText().getText().toString())) {
+            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -124,10 +124,10 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
         btnCode.setEnabled(valuable);
     }
 
-    public boolean requestPermission(){
+    public boolean requestPermission() {
         //判断当前Activity是否已经获得了该权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED
-                ||ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
             //如果App的权限申请曾经被用户拒绝过，就需要在这里跟用户做出解释
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -136,7 +136,7 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
             } else {
                 //进行权限请求
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_CONTACTS,Manifest.permission.READ_PHONE_STATE},
+                        new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE},
                         EXTERNAL_STORAGE_REQ_CODE);
                 return false;
             }
@@ -165,7 +165,7 @@ public class FindPasswordActivity extends AppCompatActivity  implements TimeList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }

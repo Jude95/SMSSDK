@@ -1,13 +1,13 @@
-#SMSSDK
+# SMSSDK
 对[mob](http://www.mob.com/#/)的短信验证二次封装。更简洁的调用，maven直接仓库依赖。
 
-#依赖
-`compile 'com.jude:smssdk_mob:1.1.1'`
+# 依赖
+`compile 'com.jude:smssdk_mob:1.1.2'`
 
-#示例APP下载
+# 示例APP下载
 [直接下载](http://7xn7nj.com2.z0.glb.qiniucdn.com/smssdk.apk)
 
-#使用方法
+# 使用方法
 在你需要发送验证码的时候直接使用：
 
     SMSManager.getInstance().sendMessage(this, "86","18888888888");
@@ -28,7 +28,7 @@
             
 2行代码即完成短信验证。
 
-##重发与等待时间
+## 重发与等待时间
 因为短信验证不能过于频繁。所以默认有60秒的等待时间。用下面代码注册可以收到通知并更新UI。
 
         SMSManager.getInstance().registerTimeListener(new TimeListener() {
@@ -49,7 +49,7 @@
 具体用法可以参考demo。
 可以使用 `SMSManager.getInstance().setDefaultDelay(60)`来设置最短时间。
 
-##使用自己的APPKEY
+## 使用自己的APPKEY
 在`AndroidManifest`的`application`节点下增加
 
         <meta-data

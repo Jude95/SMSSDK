@@ -7,12 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements LocalAccountManager.AccountChangeListener{
 
-    @Bind(R.id.name)
+    @BindView(R.id.name)
     TextView name;
 
     @Override

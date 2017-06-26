@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -17,17 +17,17 @@ import butterknife.ButterKnife;
  */
 public class LoginActivity extends AppCompatActivity {
     public static final int REQUEST_LOGIN = 12356;
-
-    @Bind(R.id.tilNumber)
+    @BindView(R.id.tilNumber)
     TextInputLayout tilNumber;
-    @Bind(R.id.tilPassword)
+    @BindView(R.id.tilPassword)
     TextInputLayout tilPassword;
-    @Bind(R.id.login)
+    @BindView(R.id.login)
     Button login;
-    @Bind(R.id.find)
+    @BindView(R.id.find)
     TextView find;
-    @Bind(R.id.register)
+    @BindView(R.id.register)
     TextView register;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (LocalAccountManager.getInstance(LoginActivity.this).check(LoginActivity.this,tilNumber.getEditText().getText().toString(), tilPassword.getEditText().getText().toString())) {
+                if (LocalAccountManager.getInstance(LoginActivity.this).check(LoginActivity.this, tilNumber.getEditText().getText().toString(), tilPassword.getEditText().getText().toString())) {
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
@@ -48,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(LoginActivity.this, RegisterActivity.class),REQUEST_LOGIN);
+                startActivityForResult(new Intent(LoginActivity.this, RegisterActivity.class), REQUEST_LOGIN);
             }
         });
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(LoginActivity.this, FindPasswordActivity.class),REQUEST_LOGIN);
+                startActivityForResult(new Intent(LoginActivity.this, FindPasswordActivity.class), REQUEST_LOGIN);
             }
         });
     }
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
             tilNumber.getEditText().setText(data.getStringExtra("number"));
             tilPassword.getEditText().setText(data.getStringExtra("password"));
         }

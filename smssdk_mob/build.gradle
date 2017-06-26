@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 23
+        minSdkVersion 15
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -16,38 +16,42 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:26.0.0-beta2'
     compile files('libs/MobCommons.jar')
     compile files('libs/MobTools.jar')
-    compile files('libs/SMSSDK-2.0.1.jar')
+    compile files('libs/SMSSDK-2.1.4.jar')
 }
-ext {
-    bintrayRepo = 'maven'////bintray
-    bintrayName = 'smssdk_mob'//bintray
 
-    publishedGroupId = 'com.jude'
-    artifact = 'smssdk_mob'
+ext {
+    package_repo = 'maven' // bintray上的仓库名，一般为maven
+    package_type = 'aar'  // 输出类型
+    package_group = 'com.jude' // JCenter的GroupId
+    package_artifact = 'smssdk_mob' // JCenter的ArtifactId
+    package_version = '1.1.2'  // JCenter的VersionId
+    package_description = 'A tool for Android'
+
+    // 以下选填
 
     siteUrl = 'https://github.com/Jude95/SMSSDK'
     gitUrl = 'https://github.com/Jude95/SMSSDK'
 
-    libraryVersion = '1.1.1'
-    libraryName = 'smssdk_mob'
-    libraryDescription = 'A tool for Android'
+    //开发者信息
+    developerId = ''
+    developerName = ''
+    developerEmail = ''
 
-    developerId = 'jude95'
-    developerName = 'jude95'
-    developerEmail = '973829691@qq.com'
-
-
+    //开源协议
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }
-apply from:'https://raw.githubusercontent.com/Jude95/JCenter/master/install.gradle'
-apply from:'https://raw.githubusercontent.com/Jude95/JCenter/master/bintray.gradle'
+apply from:'https://cdn.rawgit.com/Jude95/JCenter/v2/bintray.gradle'
